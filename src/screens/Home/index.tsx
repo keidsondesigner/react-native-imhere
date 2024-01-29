@@ -1,16 +1,23 @@
-import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import React, { useState } from 'react';
+import { Alert, FlatList, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 
 export function Home() {
-  const participants = ['karol@gmail.com', 'keidson@gmail.com', 'arthur@gmail.com', 'kucas@gmail.com', 'joaquim@gmail.com', 'exemplo1@gmail.com', 'exemplo2@gmail.com', 'exemplo 3@gmail.com', 'exemplo 4@gmail.com', 'exemplo 5@gmail.com'];
+
+  //const [estado, atualizaEstado] = useState(['karol@gmail.com']);
+  const [participants, setParticipants] = useState(['karol@gmail.com']);
 
   function handleParticipantAdd() {
     console.log('Adicionar');
-    if(participants.includes('karol@gmail.com')) {
+    if(participants.includes('teste@gmail.com')) {
       return Alert.alert('Participante existe!', 'Este nome já existe na lista.');
     }
+
+    //setParticipants(estadoAtual => [...estadoAtual, 'teste@gmail.com']);
+    setParticipants(prevState => [...prevState, 'teste@gmail.com']);
+    console.log(participants);
   } 
 
   function handleParticipantRemove(name: string) {
