@@ -42,10 +42,15 @@ export const styles = StyleSheet.create({
     width: '100%',
     flexDirection: 'row',
     marginTop: 36,
-    marginBottom: 42
+    marginBottom: 25
   },
   listEmptyText: {
     color: '#fff',
     fontSize: 14,
+  },
+  eventTextList: {
+    color: '#6B6B6B',
+    fontSize: 16,
+    marginBottom: 10
   }
 });

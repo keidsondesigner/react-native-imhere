@@ -1,23 +1,37 @@
-import { FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
 
 export function Home() {
-  const participants = ['Karol', 'Keidson', 'Arthur', 'Lucas', 'Joaquim', 'exemplo 1', 'exemplo 2', 'exemplo 3', 'exemplo 4', 'exemplo 5'];
+  const participants = ['karol@gmail.com', 'keidson@gmail.com', 'arthur@gmail.com', 'kucas@gmail.com', 'joaquim@gmail.com', 'exemplo1@gmail.com', 'exemplo2@gmail.com', 'exemplo 3@gmail.com', 'exemplo 4@gmail.com', 'exemplo 5@gmail.com'];
 
   function handleParticipantAdd() {
     console.log('Adicionar');
+    if(participants.includes('karol@gmail.com')) {
+      return Alert.alert('Participante existe!', 'Este nome já existe na lista.');
+    }
   } 
 
   function handleParticipantRemove(name: string) {
     console.log('remover' + name);
+    return Alert.alert('Remover', 'Remover o participante ' + name + '?',
+    [
+      {
+        text: 'Sim',
+        onPress: () => Alert.alert('Removido', 'O participante ' + name + ' foi removido.')
+      },
+      {
+        text: "Não",
+        style: "cancel"
+      }
+    ]);
   } 
 
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>
-        Hello world
+        Criador de Eventos
       </Text>
       <Text style={styles.eventDate}>
         Segunda, 29 de Janeiro de 2024.
@@ -27,6 +41,7 @@ export function Home() {
           style={styles.input}
           placeholder="Nome do participante"
           placeholderTextColor="#6B6B6B"
+          keyboardType="email-address"
         />
         <TouchableOpacity 
           style={styles.button}
@@ -37,6 +52,9 @@ export function Home() {
           </Text>
         </TouchableOpacity>
       </View>
+      <Text style={styles.eventTextList}>
+        Lista de participantes
+      </Text>
       {/* 
         <Participant 
           name="Keidson"
