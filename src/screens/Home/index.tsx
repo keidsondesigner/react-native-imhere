@@ -1,4 +1,4 @@
-import { ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { FlatList, ScrollView, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 import { styles } from './styles';
 import { Participant } from '../../components/Participant';
@@ -43,17 +43,36 @@ export function Home() {
           onRemove={() => handleParticipantRemove('Keidson')} // função com parametro;
         />
       */}
-      <ScrollView showsVerticalScrollIndicator={false}>
-        {
-          participants.map(participant => (
-            <Participant 
-              key={participant}
-              name={participant}
-              onRemove={() => handleParticipantRemove(participant)} // função com parametro;
-            />
-          ))
-        }
-      </ScrollView>
+      {/* 
+        <ScrollView showsVerticalScrollIndicator={false}>
+          {
+            participants.map(participant => (
+              <Participant 
+                key={participant}
+                name={participant}
+                onRemove={() => handleParticipantRemove(participant)} // função com parametro;
+              />
+            ))
+          }
+        </ScrollView>
+      */}
+      <FlatList 
+        data={participants}
+        keyExtractor={item => item}
+        renderItem={({ item }) => (
+          <Participant 
+            key={item}
+            name={item}
+            onRemove={() => handleParticipantRemove(item)} // função com parametro;
+          />
+        )}
+        showsVerticalScrollIndicator={false}
+        ListEmptyComponent={() => (
+          <Text style={styles.listEmptyText}>
+            Ninguém chegou no evento ainda? Adicione participantes a sua lista de presença.
+          </Text>
+        )}
+      />
     </View>
   );
 }
