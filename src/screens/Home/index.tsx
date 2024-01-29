@@ -9,6 +9,10 @@ export function Home() {
     console.log('Adicionar');
   } 
 
+  function handleParticipantRemove(name: string) {
+    console.log('remover' + name);
+  } 
+
   return (
     <View style={styles.container}>
       <Text style={styles.eventName}>
@@ -32,9 +36,18 @@ export function Home() {
           </Text>
         </TouchableOpacity>
       </View>
-      <Participant name="Keidson"/>
-      <Participant name="Karol"/>
-      <Participant name="Arthur"/>
+      <Participant 
+        name="Keidson"
+        onRemove={() => handleParticipantRemove('Keidson')} // função com parametro;
+      />
+      <Participant 
+        name="Karol"
+        onRemove={() => handleParticipantRemove('Karol')} // função com parametro;
+      />
+      <Participant 
+        name="Arthur"
+        onRemove={() => handleParticipantRemove('Arthur')} // função com parametro;
+      />
     </View>
   );
 }
