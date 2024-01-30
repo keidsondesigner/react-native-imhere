@@ -7,18 +7,20 @@ import { Participant } from '../../components/Participant';
 export function Home() {
 
   //const [estado, atualizaEstado] = useState(['karol@gmail.com']);
-  const [participants, setParticipants] = useState(['karol@gmail.com']);
+  const [participants, setParticipants] = useState<string[]>([]);
+
+  const [participantInputName, setParticipantInputName] = useState<string>('');
 
   function handleParticipantAdd() {
-    console.log('Adicionar');
-    if(participants.includes('teste@gmail.com')) {
+    if(participants.includes(participantInputName)) {
       return Alert.alert('Participante existe!', 'Este nome já existe na lista.');
     }
-
-    //setParticipants(estadoAtual => [...estadoAtual, 'teste@gmail.com']);
-    setParticipants(prevState => [...prevState, 'teste@gmail.com']);
-    console.log(participants);
-  } 
+    
+    //atualizaEstado(estadoAtual => [...estadoAtual, 'teste@gmail.com']);
+    setParticipants(prevState => [...prevState, participantInputName]);
+    setParticipantInputName(''); // limpando o input;
+    console.log('Fun() adicionar', participants);
+  }  2
 
   function handleParticipantRemove(name: string) {
     console.log('remover' + name);
@@ -49,6 +51,10 @@ export function Home() {
           placeholder="Nome do participante"
           placeholderTextColor="#6B6B6B"
           keyboardType="email-address"
+          // onChangeText={eventText => console.log(eventText)}
+          onChangeText={eventText => setParticipantInputName(eventText)} // Guardar texto do Input no estado;
+          //onChangeText={setParticipantInputName} // Uma forma mais limpa;
+          value={participantInputName} // // limpando o input;
         />
         <TouchableOpacity 
           style={styles.button}
