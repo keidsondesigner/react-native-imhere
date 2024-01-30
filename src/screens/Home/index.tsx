@@ -7,28 +7,34 @@ import { Participant } from '../../components/Participant';
 export function Home() {
 
   //const [estado, atualizaEstado] = useState(['karol@gmail.com']);
+  //Minha lista de participantes é o meu estado "participants" 
   const [participants, setParticipants] = useState<string[]>([]);
 
   const [participantInputName, setParticipantInputName] = useState<string>('');
 
   function handleParticipantAdd() {
+
+    if (!participantInputName.trim()) {
+      return Alert.alert('Campo vazio!', 'Por favor, insira um nome de participante válido.');
+    }
+
     if(participants.includes(participantInputName)) {
       return Alert.alert('Participante existe!', 'Este nome já existe na lista.');
     }
     
     //atualizaEstado(estadoAtual => [...estadoAtual, 'teste@gmail.com']);
     setParticipants(prevState => [...prevState, participantInputName]);
-    setParticipantInputName(''); // limpando o input;
+    setParticipantInputName(''); // limpando o valor do input;
     console.log('Fun() adicionar', participants);
   }  2
 
   function handleParticipantRemove(name: string) {
-    console.log('remover' + name);
-    return Alert.alert('Remover', 'Remover o participante ' + name + '?',
+    Alert.alert('Remover', 'Remover o participante ' + name + '?',
     [
       {
         text: 'Sim',
-        onPress: () => Alert.alert('Removido', 'O participante ' + name + ' foi removido.')
+        onPress: () =>  setParticipants(prevState => prevState.filter(participant => participant !== name))
+        // setParticipants()  Retornar todos os participantes, Menos o que estou passando como parametro. Isso remove o participante clicado.
       },
       {
         text: "Não",
@@ -52,9 +58,9 @@ export function Home() {
           placeholderTextColor="#6B6B6B"
           keyboardType="email-address"
           // onChangeText={eventText => console.log(eventText)}
-          onChangeText={eventText => setParticipantInputName(eventText)} // Guardar texto do Input no estado;
           //onChangeText={setParticipantInputName} // Uma forma mais limpa;
-          value={participantInputName} // // limpando o input;
+          onChangeText={eventText => setParticipantInputName(eventText)} // Guardar texto do Input no estado;
+          value={participantInputName} // valor do input;
         />
         <TouchableOpacity 
           style={styles.button}
